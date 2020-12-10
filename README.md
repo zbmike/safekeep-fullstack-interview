@@ -3,7 +3,7 @@
 ## About this project
 Seems like you're trying out for a position at Safekeep or you've found this and would like to apply. Fork this repo and give it a go. ;)
 
-Your goal is to create a simple CRUD application.
+Your goal is to create a simple CRD application.
 
 The GIF below will show you what needs to be done. The input fields will be a person's name, surname and hours of participation - calculate the participation percentage afterwards. Create a table and pie chart for us to visualize the data. You can use any library for the visualizations/charting, we suggest react-charts or react-apex-charts. Styling is up to you - the more pleasureful it is the more pleasing it will be to us. <b> Your project doesn't need to look identical to the GIF below.</b>  However, the design should be responsive for mobile and web applications (see the GIF).
 
