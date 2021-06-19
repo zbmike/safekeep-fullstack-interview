@@ -46,4 +46,5 @@ app.delete("/api/participants/:id", async (req, res) => {
   }
 });
 
+console.log("Server started at port 8000");
 app.listen(8000);
