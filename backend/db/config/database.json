@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "trust_our_leader",
+    "password": "in_jeff_we_trust",
+    "database": "postgres",
+    "host": "host.docker.internal",
+    "dialect": "postgres"
+  },
+  "test": {},
+  "production": {}
+}
