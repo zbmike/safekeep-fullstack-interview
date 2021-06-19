@@ -1,3 +1,4 @@
+import React from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -31,10 +32,11 @@ export default function DataTable({ data, dispatch }) {
             <TableCell align="center">
               <Button
                 color="secondary"
-                onClick={async () => {
-                  const res = await deleteParticipant(row.id);
-                  if (res.success)
-                    dispatch({ type: "delete", payload: { id: row.id } });
+                onClick={() => {
+                  deleteParticipant(row.id).then((res) => {
+                    if (res.success)
+                      dispatch({ type: "delete", payload: { id: row.id } });
+                  });
                 }}
               >
                 <Icon>delete</Icon>

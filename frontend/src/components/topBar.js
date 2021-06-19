@@ -59,6 +59,7 @@ function TopBar({ dispatch }) {
     setName("");
     setSurName("");
     setHour("");
+    setErrors({name:false, surName:false, hour:false});
   };
   return (
     <Card>
