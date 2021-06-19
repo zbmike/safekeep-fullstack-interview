@@ -10,6 +10,7 @@ import Hidden from "@material-ui/core/Hidden";
 import { useState } from "react";
 
 import { createParticipant } from "../api/participants";
+import { isNum } from "../util/validate";
 
 const WhiteTextField = withStyles({
   root: {
@@ -48,12 +49,16 @@ function TopBar({ dispatch }) {
   const [name, setName] = useState("");
   const [surName, setSurName] = useState("");
   const [hour, setHour] = useState("");
+  const [errors, setErrors] = useState({name:false, surName:false, hour:false});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const participantObj = { name, surName, hour: +hour };
     const data = await createParticipant(participantObj);
     dispatch({ type: "create", payload: { data } });
+    setName("");
+    setSurName("");
+    setHour("");
   };
   return (
     <Card>
@@ -132,6 +137,9 @@ function TopBar({ dispatch }) {
               onChange={({ target }) => {
                 setName(target.value);
               }}
+              onBlur={() => setErrors({...errors, name:!name})}
+              error={errors.name}
+              helperText={errors.name && "Please enter first name"}
             />
             <WhiteTextField
               label="Last Name"
@@ -142,6 +150,9 @@ function TopBar({ dispatch }) {
               }}
               value={surName}
               onChange={({ target }) => setSurName(target.value)}
+              onBlur={() => setErrors({...errors, surName:!surName})}
+              error={errors.surName}
+              helperText={errors.surName && "Please enter last name"}
             />
             <WhiteTextField
               label="Participated Time"
@@ -152,6 +163,9 @@ function TopBar({ dispatch }) {
               }}
               value={hour}
               onChange={({ target }) => setHour(target.value)}
+              onBlur={() => setErrors({...errors, hour:!isNum(hour)})}
+              error={errors.hour}
+              helperText={errors.hour && "Please enter a number"}
             />
             <Button
               type="submit"
