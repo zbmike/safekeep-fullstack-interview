@@ -17,7 +17,7 @@ function Chart({ data }) {
     x.innerRadius = 60;
 
     let series = x.series.push(new am4charts.PieSeries3D());
-    series.dataFields.value = "hours";
+    series.dataFields.value = "hour";
     series.dataFields.category = "name";
 
     chart.current = x;
@@ -28,7 +28,7 @@ function Chart({ data }) {
   useLayoutEffect(() => {
     if (data) {
       let chartData;
-      if (data) chartData = data.map(dat => ({name: `${dat.name} ${dat.surName}`, hours: dat.hours}));
+      if (data) chartData = data.map(dat => ({name: `${dat.name} ${dat.surName}`, hour: dat.hour}));
 
       chart.current.data = chartData;
     }

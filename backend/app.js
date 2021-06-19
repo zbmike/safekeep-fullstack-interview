@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const { Participant } = require("./db/models");
 
@@ -10,6 +11,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(cors({ origin: "*" }));
 
 // R
 app.get("/api/participants", async (req, res) => {

@@ -7,6 +7,9 @@ import { withStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Hidden from "@material-ui/core/Hidden";
+import { useState } from "react";
+
+import { createParticipant } from "../api/participants";
 
 const WhiteTextField = withStyles({
   root: {
@@ -28,18 +31,29 @@ const WhiteTextField = withStyles({
     "& .MuiInput-underline.Mui-error:after": {
       borderBottomColor: "red",
     },
+    "& .MuiInputBase-input": {
+      color: "white",
+    },
     "& .Mui-focused .MuiInputBase-input": {
       color: "white",
     },
   },
 })(TextField);
 
-function TopBar() {
+function TopBar({ dispatch }) {
   const theme = useTheme();
   const lgMatches = useMediaQuery(theme.breakpoints.up("lg"));
   const mdMatches = useMediaQuery(theme.breakpoints.up("md"));
-  const handleSubmit = (e) => {
+
+  const [name, setName] = useState("");
+  const [surName, setSurName] = useState("");
+  const [hour, setHour] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const participantObj = { name, surName, hour: +hour };
+    const data = await createParticipant(participantObj);
+    dispatch({ type: "create", payload: { data } });
   };
   return (
     <Card>
@@ -63,7 +77,7 @@ function TopBar() {
               Participantion Data App
             </Typography>
             <Typography
-              variant="body"
+              variant="body1"
               align="center"
               style={{ marginTop: "1.5rem" }}
             >
@@ -84,7 +98,7 @@ function TopBar() {
           >
             <Typography variant="h4">Participantion Data App</Typography>
             <Typography variant="h4"></Typography>
-            <Typography variant="body" style={{ marginTop: "1.5rem" }}>
+            <Typography variant="body1" style={{ marginTop: "1.5rem" }}>
               This app creates, demonstrates and deletes users and the
               percentage of their participation.
             </Typography>
@@ -114,8 +128,9 @@ function TopBar() {
                 marginBottom: "0.5rem",
                 width: lgMatches ? "18rem" : "12rem",
               }}
-              InputProps={{
-                style: { color: "white" },
+              value={name}
+              onChange={({ target }) => {
+                setName(target.value);
               }}
             />
             <WhiteTextField
@@ -125,21 +140,25 @@ function TopBar() {
                 marginBottom: "0.5rem",
                 width: lgMatches ? "18rem" : "12rem",
               }}
+              value={surName}
+              onChange={({ target }) => setSurName(target.value)}
             />
             <WhiteTextField
-              label="Participation"
+              label="Participated Time"
               placeholder="Enter hours..."
               style={{
                 marginBottom: "1.5rem",
                 width: lgMatches ? "18rem" : "12rem",
               }}
+              value={hour}
+              onChange={({ target }) => setHour(target.value)}
             />
             <Button
               type="submit"
               variant="contained"
               style={{ width: "8rem", backgroundColor: "#fafafa" }}
             >
-              Send {'>'}
+              Send {">"}
             </Button>
           </form>
         </Grid>
