@@ -34,7 +34,7 @@ function Chart({ data }) {
     }
   }, [data]);
 
-  return <div id="chartdiv" style={{ width: "100%", height: "250px" }}></div>;
+  return <div id="chartdiv" style={{ width: "550px", height: "250px" }}></div>;
 }
 
 export default Chart;
